@@ -10,15 +10,17 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.stage.Stage;
+import sample.Model.Maze;
+import sample.View.ViewWorker;
 
 import java.io.IOException;
 
-public class Controller {
+public class JavaFXController {
 
     @FXML
     public javafx.scene.control.Button generateButton;
     @FXML
-    public Button backButton;
+    public static Button backButton;
     @FXML
     private ColorPicker colorPicker;
     @FXML
@@ -34,11 +36,22 @@ public class Controller {
         Parent root = FXMLLoader.load(getClass().getResource("..\\View\\main.fxml"));
         Stage window = (Stage) generateButton.getScene().getWindow();
         window.setScene(new Scene(root));
+
+        // Desenare maze gol.
+
+        ViewWorker.notify1();
     }
 
     public void backToMenu(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("..\\View\\menu.fxml"));
         Stage window = (Stage) backButton.getScene().getWindow();
         window.setScene(new Scene(root));
+    }
+
+    public static void updateTable() {
+        System.out.println("Update table...");
+        // Primesti noul maze.
+
+        // Desenare maze.
     }
 }
