@@ -1,4 +1,4 @@
-package sample;
+package sample.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,13 +31,13 @@ public class Controller {
         System.out.println(colorPicker.getValue());
         System.out.println(checkbox.isSelected());
 
-        Parent root = FXMLLoader.load(getClass().getResource("scene2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("..\\View\\main.fxml"));
         Stage window = (Stage) generateButton.getScene().getWindow();
         window.setScene(new Scene(root));
     }
 
     public void backToMenu(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("..\\View\\menu.fxml"));
         Stage window = (Stage) backButton.getScene().getWindow();
         window.setScene(new Scene(root));
     }

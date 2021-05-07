@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller">
    <top>
-      <AnchorPane prefHeight="326.0" prefWidth="367.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="462.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
             <ColorPicker fx:id="colorPicker" layoutX="283.0" layoutY="136.0" prefHeight="26.0" prefWidth="145.0" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="171.4" />
             <Spinner fx:id="spinner" editable="true" initialValue="5" layoutX="283.0" layoutY="192.0" max="10" min="1" prefHeight="26.0" prefWidth="145.0" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="171.4" />
@@ -26,16 +26,11 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <CheckBox fx:id="checkbox" layoutX="237.0" layoutY="251.0" mnemonicParsing="false" style="-fx-alignment: center;" text="Instant Result" textFill="#e71d1d" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="237.39999999999998">
+            <CheckBox fx:id="checkbox" alignment="CENTER" layoutX="216.0" layoutY="409.0" mnemonicParsing="false" style="-fx-alignment: center;" text="Instant Result" textFill="#e71d1d" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="258.4">
                <font>
                   <Font size="16.0" />
                </font>
             </CheckBox>
-            <Button fx:id="generateButton" layoutX="243.0" layoutY="303.0" mnemonicParsing="false" onAction="#generateMaze" style="-fx-alignment: center; -fx-background-color: e71d1d;" text="Generate" AnchorPane.leftAnchor="243.0" AnchorPane.rightAnchor="243.4" AnchorPane.topAnchor="303.0">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Button>
             <Separator layoutX="200.0" layoutY="84.0" prefWidth="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
             <Label layoutX="186.0" layoutY="24.0" style="-fx-alignment: center;" text="MAZE GENERATOR" textFill="#d72222" AnchorPane.leftAnchor="186.0" AnchorPane.rightAnchor="185.2">
                <font>
@@ -45,4 +40,11 @@
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <Button fx:id="generateButton" mnemonicParsing="false" onAction="#generateMaze" prefHeight="46.0" prefWidth="242.0" style="-fx-alignment: center; -fx-background-color: e71d1d;" text="Generate" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+   </center>
 </BorderPane>
