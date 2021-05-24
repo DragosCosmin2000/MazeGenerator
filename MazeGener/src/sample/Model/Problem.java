@@ -1,16 +1,16 @@
 package sample.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Problem {
     private Maze maze;
 
-    private Integer startingCellI;
-    private Integer startingCellJ;
+    private List<Cell> stack;
 
     public Problem(Maze maze) {
         this.maze = maze;
-
-        this.startingCellI = maze.getCurrentCell().getI();
-        this.startingCellJ = maze.getCurrentCell().getJ();
+        this.stack = new ArrayList<>();
     }
 
     public Maze getMaze() {
@@ -21,28 +21,30 @@ public class Problem {
         this.maze = maze;
     }
 
-    public Integer getStartingCellXPos() {
-        return startingCellI;
+    public void push(Cell cell) {
+        if(cell != null) {
+            stack.add(cell);
+        }
     }
 
-    public void setStartingCellXPos(Integer startingCellXPos) {
-        this.startingCellI = startingCellXPos;
+    public Cell pop() {
+        Cell cell = null;
+        if(stack.size() > 0) {
+            cell = stack.get(stack.size() - 1);
+            stack.remove(stack.size() - 1);
+        }
+
+        return cell;
     }
 
-    public Integer getStartingCellYPos() {
-        return startingCellJ;
-    }
-
-    public void setStartingCellYPos(Integer startingCellYPos) {
-        this.startingCellJ = startingCellYPos;
+    public int getStackLength() {
+        return stack.size();
     }
 
     @Override
     public String toString() {
         return "Problem{" +
                 "maze=" + maze +
-                ", startingCellXPos=" + startingCellI +
-                ", startingCellYPos=" + startingCellJ +
                 '}';
     }
 }

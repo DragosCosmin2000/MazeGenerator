@@ -1,42 +1,53 @@
 package sample.Model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Maze {
-    private Integer cols;
-    private Integer rows;
-    private Cell[][] table;
+    private int nrOfRows;
+    private int nrOfCols;
+    private List<Cell> grid;
     private Cell currentCell;
 
-    public Maze(Integer rows, Integer cols, Integer currentCellXPos, Integer currentCellYPos) {
-        this.rows = rows;
-        this.cols = cols;
-        table = new Cell[rows][cols];
+    public Maze(int nrOfRows, int nrOfCols) {
+        this.nrOfRows = nrOfRows;
+        this.nrOfCols = nrOfCols;
 
-        // Crearea celulelor.
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < cols; j++) {
-                table[i][j] = new Cell(i, j);
+        // Create the grid.
+        this.grid = new ArrayList<>();
+        for(int y = 0; y < nrOfRows; y++) {
+            for(int x = 0; x < nrOfCols; x++) {
+                this.grid.add(new Cell(x, y));
             }
         }
 
-        this.currentCell = table[currentCellYPos][currentCellXPos];
+        // Set the initial cell. We can start anywhere. Let it (0, 0) for the moment.
+        this.currentCell = grid.get(0 * nrOfRows + 0);
     }
 
-    public Integer getCols() {
-        return cols;
+    public int getNrOfRows() {
+        return nrOfRows;
     }
 
-    public void setCols(Integer cols) {
-        this.cols = cols;
+    public void setNrOfRows(int nrOfRows) {
+        this.nrOfRows = nrOfRows;
     }
 
-    public Integer getRows() {
-        return rows;
+    public int getNrOfCols() {
+        return nrOfCols;
     }
 
-    public void setRows(Integer rows) {
-        this.rows = rows;
+    public void setNrOfCols(int nrOfCols) {
+        this.nrOfCols = nrOfCols;
+    }
+
+    public List<Cell> getGrid() {
+        return grid;
+    }
+
+    public void setGrid(List<Cell> grid) {
+        this.grid = grid;
     }
 
     public Cell getCurrentCell() {
@@ -47,21 +58,74 @@ public class Maze {
         this.currentCell = currentCell;
     }
 
-    public Cell[][] getTable() {
-        return table;
+    public int getGridIndex(int i, int j) {
+        return i + j * nrOfCols;
     }
 
-    public void setTable(Cell[][] table) {
-        this.table = table;
+    public boolean checkLocation(int i, int j) {
+        if(i < 0 || j < 0 || i > nrOfCols || j > nrOfRows - 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void pushNeighbour(int i, int j, List<Cell> neighbours) {
+        if(checkLocation(i, j)) {
+            Cell neighbour = grid.get(getGridIndex(i, j));
+            if(!neighbour.isVisited()) {
+                neighbours.add(neighbour);
+            }
+        }
+    }
+
+    public Cell checkCellNeighbours(Cell cell) {
+        List<Cell> neighbours = new ArrayList<>();
+
+        // Top Neighbour.
+        pushNeighbour(
+                cell.getI(),
+                cell.getJ() - 1,
+                neighbours
+        );
+
+        // Right Neighbour.
+        pushNeighbour(
+                cell.getI() + 1,
+                cell.getJ(),
+                neighbours
+        );
+
+        // Bottom Neighbour.
+        pushNeighbour(
+                cell.getI(),
+                cell.getJ() + 1,
+                neighbours
+        );
+
+        // Left Neighbour.
+        pushNeighbour(
+                cell.getI() - 1,
+                cell.getJ(),
+                neighbours
+        );
+
+        if(neighbours.size() > 0) {
+            // Pick a random neighbour.
+            int random = (int)Math.floor(Math.random() * neighbours.size());
+            return neighbours.get(random);
+        }
+
+        return null;
     }
 
     @Override
     public String toString() {
         return "Maze{" +
-                "\n\tcols=" + cols +
-                "\n\trows=" + rows +
-                "\n\ttable=" + Arrays.toString(table) +
-                "\n\tcurrentCell=" + currentCell +
+                "nrOfRows=" + nrOfRows +
+                ", nrOfCols=" + nrOfCols +
+                ", grid=" + grid +
+                ", currentCell=" + currentCell +
                 '}';
     }
 }
