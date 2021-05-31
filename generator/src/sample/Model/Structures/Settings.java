@@ -1,6 +1,7 @@
 package sample.Model.Structures;
 
 import javafx.scene.paint.Color;
+import sample.Model.Structures._2D.Cell;
 
 import java.util.List;
 
@@ -12,11 +13,15 @@ public class Settings {
     private int animationSpeed;
     private List<Cell> cellList;
 
-    public Settings(int dimension, Color colorTheme,boolean importer,List<Cell> cellList) {
+    public Settings() {
+    }
+
+    public Settings(int dimension, Color colorTheme, boolean importer, List<Cell> cellList) {
         this.dimension = dimension;
         this.colorTheme = colorTheme;
-        this.importer=importer;
-        this.cellList=cellList;
+        this.importer = importer;
+        this.cellList = cellList;
+
         // Calculate cellDimension. 600 is the dimension of the MazePane.
         cellDimension = (int)(600 / dimension);
 
@@ -45,6 +50,10 @@ public class Settings {
 
     public int getCellDimension() {
         return cellDimension;
+    }
+
+    public void setCellDimension(int cellDimension) {
+        this.cellDimension = cellDimension;
     }
 
     public int getAnimationSpeed() {

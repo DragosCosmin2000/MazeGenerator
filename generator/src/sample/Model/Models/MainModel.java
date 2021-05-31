@@ -9,13 +9,10 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import sample.Model.Algorithms.Algorithm;
 import sample.Model.Algorithms.RecursiveBacktrackerAlgorithm;
-import sample.Model.Structures.Cell;
-import sample.Model.Structures.Maze;
-import sample.Model.Structures.Problem;
+import sample.Model.Structures._2D.Cell;
+import sample.Model.Structures._2D.Maze;
+import sample.Model.Structures._2D.Problem;
 import sample.Model.Structures.Settings;
-
-import java.util.List;
-import java.util.Random;
 
 public class MainModel extends Task<Long> {
     // For Start/Stop button. To know when is running and when is not running.
@@ -58,10 +55,17 @@ public class MainModel extends Task<Long> {
         if(settings.importer) {
             maze = new Maze((int)Math.sqrt(settings.getCellList().size()), (int)Math.sqrt(settings.getCellList().size()));
             maze.setGrid(settings.getCellList());
+
+            settings.setDimension((int)Math.sqrt(settings.getCellList().size()));
+
+            settings.setCellDimension(
+                    (int)(600 / (int)Math.sqrt(settings.getCellList().size()))
+            );
         }
-        else{
+        else {
             maze = new Maze(settings.getDimension(), settings.getDimension());
         }
+
         // By default. Because they will need these values when the start/stop button will be pressed for the first time.
         runningFlag = true;
         pause = false;
@@ -74,11 +78,7 @@ public class MainModel extends Task<Long> {
 
     @Override
     protected Long call() throws Exception {
-        // Create the problem.
         if(settings.importer) {
-            System.out.println("salut");
-
-            System.out.println(maze.getGrid().size());
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -90,7 +90,7 @@ public class MainModel extends Task<Long> {
             });
         }
         else {
-            while (true) {
+            while(true) {
                 // Used to slow down the animation.
                 Thread.sleep((int) (1000 / settings.getAnimationSpeed()));
 
@@ -145,8 +145,6 @@ public class MainModel extends Task<Long> {
     }
 
     public Node show(Cell cell) {
-        //startX = startX / 2 - (lungimeCelula * numarPatratele) / 2;
-        //startY = startY / 2 - (lungimeCelula * numarPatratele) / 2;
         double x = cell.getJ() * settings.getCellDimension(); // Cat de "in dreapta" e.
         double y = cell.getI() * settings.getCellDimension(); // Cat de "in jos" e.
 

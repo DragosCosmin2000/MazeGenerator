@@ -1,6 +1,6 @@
 package sample.Model.Algorithms;
 
-import sample.Model.Structures.Problem;
+import sample.Model.Structures._2D.Problem;
 
 public abstract class Algorithm {
     protected Problem problem;

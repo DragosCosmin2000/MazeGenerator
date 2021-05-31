@@ -1,7 +1,7 @@
 package sample.Model.Algorithms;
 
-import sample.Model.Structures.Cell;
-import sample.Model.Structures.Problem;
+import sample.Model.Structures._2D.Cell;
+import sample.Model.Structures._2D.Problem;
 
 public class RecursiveBacktrackerAlgorithm extends Algorithm{
     public RecursiveBacktrackerAlgorithm(Problem problem) {

@@ -2,8 +2,8 @@ package sample;
 
 import sample.Model.Algorithms.Algorithm;
 import sample.Model.Algorithms.RecursiveBacktrackerAlgorithm;
-import sample.Model.Structures.Maze;
-import sample.Model.Structures.Problem;
+import sample.Model.Structures._2D.Maze;
+import sample.Model.Structures._2D.Problem;
 
 public class Test {
     public static void main(String[] args) {

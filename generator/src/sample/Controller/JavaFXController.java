@@ -4,50 +4,68 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONException;
+import sample.Model.Models.Main3DModel;
 import sample.Model.Models.MainModel;
-import sample.Model.Structures.Cell;
-import sample.Model.Structures.Maze;
+import sample.Model.Structures._2D.Cell;
+import sample.Model.Structures._2D.Maze;
 import sample.Model.Structures.Settings;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.security.Principal;
-import java.util.ArrayList;
+import java.net.URL;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
 import javafx.embed.swing.SwingFXUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-public class JavaFXController {
+public class JavaFXController implements Initializable {
+    private ResourceBundle bundle;
+
+    @FXML
+    public Label appTitle;
+    @FXML
+    public Label dimensionLabel;
+    @FXML
+    public Label colorLabel;
+    @FXML
+    public Label languageLabel;
+    @FXML
+    public Label algorithmLabel;
+
     @FXML
     public Button generateButton;
     @FXML
+    public Button generate3DButton;
+    @FXML
     public Button saveButton;
+    @FXML
+    public Button saveAsJsonButton;
     @FXML
     public Button backButton;
     @FXML
     private Button exitButton;
     @FXML
     private Button startStopButton;
+    @FXML
+    private Button importMaze;
 
     // Speed changers.
     @FXML
@@ -60,25 +78,98 @@ public class JavaFXController {
     private Button x8SpeedButton;
     @FXML
     private Button maxSpeedButton;
-    @FXML
-    public CheckBox checkbox;
+
     @FXML
     private ColorPicker colorPicker;
     @FXML
     private Spinner spinner;
+
+    @FXML
+    private Button romanianLanguageButton;
+    @FXML
+    private Button englishLanguageButton;
+
+    // Main Scene Pane.
     @FXML
     private Pane mazePane;
 
-    private Boolean isImported=false;
+    // Main3D Scene main Pane.
+    @FXML
+    private AnchorPane main3DPane;
+
+    // Main3D Scene Panes.
+    @FXML
+    private Pane level1Pane;
+    @FXML
+    private Pane level2Pane;
+    @FXML
+    private Pane level3Pane;
+    @FXML
+    private Pane level4Pane;
+
+    private Boolean isImported = false;
     private List<Cell>cellList;
+
     // To create a new thread in order to run the animation.
     private ExecutorService executorService;
     private MainModel mainModel;
+    private Main3DModel main3DModel;
 
     private static Settings settings;
 
     public JavaFXController() {
         mainModel = new MainModel();
+        main3DModel = new Main3DModel();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resource) {
+        bundle = resource;
+
+        // Buttons hover animation.
+        // Menu Buttons.
+        setAnimationButtons(generateButton);
+        setAnimationButtons(generate3DButton);
+        setAnimationButtons(exitButton);
+        setAnimationButtons(importMaze);
+
+        // Main Scene Buttons
+        setAnimationButtons(saveButton);
+        setAnimationButtons(saveAsJsonButton);
+        setAnimationButtons(backButton);
+
+        // Set mouse event for Main3D. When right click, maze's cells will have numbers.
+        if(main3DPane != null) {
+            main3DPane.setOnMouseClicked(e -> {
+                if (e.getButton() == MouseButton.SECONDARY) {
+                    main3DModel.setShowNumbersFlag(
+                            !main3DModel.getShowNumbersFlag()
+                    );
+                }
+            });
+        }
+    }
+
+    public void setAnimationButtons(Button btn) {
+        // For some reason it becomes null when changing a scene.
+        if(btn == null) {
+            return;
+        }
+        btn.setOnMouseEntered(e -> btn.setStyle(
+                "-fx-background-color: #7544ae;" +
+                "-fx-text-fill: white;" +
+                "-fx-border-color: #7544ae;" +
+                "-fx-border-width: 3;" +
+                "-fx-border-radius: 5;"
+        ));
+
+        btn.setOnMouseExited(e -> btn.setStyle(
+                "-fx-background-color: white;" +
+                "-fx-text-fill: #7544ae;" +
+                "-fx-border-color: #7544ae;" +
+                "-fx-border-width: 3;" +
+                "-fx-border-radius: 5;"
+        ));
     }
 
     public void generateMaze(ActionEvent actionEvent) throws IOException {
@@ -92,7 +183,23 @@ public class JavaFXController {
 
         // Change to main scene.
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResource("/sample/View/main.fxml"));
+        Parent root = loader.load(getClass().getResource("/sample/View/main.fxml"), bundle);
+        Stage window = (Stage) generateButton.getScene().getWindow();
+        window.setScene(new Scene(root));
+    }
+
+    public void generate3DMaze() throws IOException {
+        // Get the settings.
+        settings = new Settings(
+                (int) spinner.getValue(),
+                colorPicker.getValue(),
+                isImported,
+                cellList
+        );
+
+        // Change to main scene.
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("/sample/View/main3D.fxml"), bundle);
         Stage window = (Stage) generateButton.getScene().getWindow();
         window.setScene(new Scene(root));
     }
@@ -108,7 +215,7 @@ public class JavaFXController {
         }
 
         // Change to menu scene.
-        Parent root = FXMLLoader.load(getClass().getResource("/sample/View/menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/View/menu.fxml"), bundle);
         Stage window = (Stage) backButton.getScene().getWindow();
         window.setScene(new Scene(root));
     }
@@ -127,7 +234,7 @@ public class JavaFXController {
         Platform.exit();
     }
 
-    public void startStopAnimation(ActionEvent actionEvent) throws IOException {
+    public void startStopAnimation(ActionEvent actionEvent) {
         if(mainModel.getRunningAnimationFlag() == 0) {
             System.out.println("FIRST CLICK"); // de scos
 
@@ -162,6 +269,42 @@ public class JavaFXController {
         }
     }
 
+    public void startStopAnimation3D(ActionEvent actionEvent) {
+        if(main3DModel.getRunningAnimationFlag() == 0) {
+            System.out.println("FIRST CLICK");
+
+            // Send data to model.
+            main3DModel.configureModel(settings, level1Pane, level2Pane, level3Pane, level4Pane);
+
+            // Create a new thread.
+            executorService = Executors.newFixedThreadPool(1);
+
+            // Start it.
+            executorService.execute(main3DModel);
+            // executorService.shutdown(); // Vad ca ajunge aici imediat dupa execute si nu face absolut nimic sau n am vazut eu ca face ceva.
+
+            // Set the flag to 2 in order to pause the animation at the next press.
+            main3DModel.setRunningAnimationFlag(2);
+        }
+        else if(main3DModel.getRunningAnimationFlag() == 1){
+            System.out.println("RUNNING"); // de scos
+            // Continue the animation.
+            main3DModel.changePause(false);
+
+            // Set the flag to 2. If the button will be pressed again the animation will pause.
+            main3DModel.setRunningAnimationFlag(2);
+        }
+        else if(main3DModel.getRunningAnimationFlag() == 2){
+            System.out.println("PAUSE"); // de scos
+            // Pause the animation.
+            main3DModel.changePause(true);
+
+            // Set the flag to 1 in order to start the animation at the next press.
+            main3DModel.setRunningAnimationFlag(1);
+        }
+    }
+
+    // Animation speed settings.
     public void setToNormalSpeed() {
         settings.setAnimationSpeed(1);
     }
@@ -182,6 +325,7 @@ public class JavaFXController {
         settings.setAnimationSpeed(100);
     }
 
+    // Import/Export.
     public void saveMaze() {
         // TODO.
         //mainModel.saveMaze();
@@ -263,5 +407,36 @@ public class JavaFXController {
             }
             cellList=cells;
         }
+    }
+
+    // Language settings.
+    public void setAllTexts(ResourceBundle newBundle) {
+        appTitle.setText(newBundle.getString("title"));
+        dimensionLabel.setText(newBundle.getString("dimensionLabel"));
+        colorLabel.setText(newBundle.getString("colorLabel"));
+        languageLabel.setText(newBundle.getString("languageLabel"));
+        algorithmLabel.setText(newBundle.getString("algorithmLabel"));
+        importMaze.setText(newBundle.getString("importButtonText"));
+        exitButton.setText(newBundle.getString("exitButtonText"));
+        generateButton.setText(newBundle.getString("generateButtonText"));
+        generate3DButton.setText(newBundle.getString("generate3DButtonText"));
+    }
+
+    public void setLanguageToRomanian() {
+        Locale currentLocale = new Locale("ro_RO");
+        bundle = ResourceBundle.getBundle("resources.Messages", currentLocale);
+        setAllTexts(bundle);
+    }
+
+    public void setLanguageToChinese() {
+        Locale currentLocale = new Locale("zh_CN");
+        bundle = ResourceBundle.getBundle("resources.Messages", currentLocale);
+        setAllTexts(bundle);
+    }
+
+    public void setLanguageToEnglish() {
+        Locale currentLocale = new Locale("en_UK");
+        bundle = ResourceBundle.getBundle("resources.Messages", currentLocale);
+        setAllTexts(bundle);
     }
 }

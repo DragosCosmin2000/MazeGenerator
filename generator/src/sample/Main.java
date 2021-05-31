@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Controller.JavaFXController;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class Main extends Application {
     public static void main(String[] args) {
         Application.launch(args);
@@ -14,7 +17,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("View/menu.fxml"));
+        Locale currentLocale = new Locale("en_UK");
+        ResourceBundle bundle = ResourceBundle.getBundle("resources.Messages", currentLocale);
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+
+        Parent root = fxmlLoader.load(getClass().getResource("View/menu.fxml"), bundle);
         primaryStage.setTitle("Maze Generator!");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);

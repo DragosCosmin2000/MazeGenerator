@@ -12,4 +12,5 @@ module MazeGenerator {
     opens sample.Model.Algorithms;
     opens sample.Model.Models;
     opens sample.View;
+    opens sample.Model.Structures._2D;
 }
