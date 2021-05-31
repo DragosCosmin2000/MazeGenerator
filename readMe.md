@@ -13,7 +13,7 @@ posibilitatea de export in diferite formate.
 
 ## Algoritmi implementati
 * Recursive Backtracker 2D and 3D
-* Prim's Algorithm
+* Hunt and Kill Algorithm
 * Aldous Broder Algorithm
 
 ## Elemente deosebite
@@ -35,5 +35,5 @@ Tudorache Dragos:
 
 Gabor Ovidiu
 * Import si Export al labirinturilor in diferite formate
-* Implementarea algoritmului Aldous Broder si Prim'S Algorithm
+* Implementarea algoritmului Aldous Broder si Hunt and Kill Algorithm
 * Functionalitea widget-urilor
