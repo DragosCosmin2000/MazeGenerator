@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.JavaFXController">
+   <children>
+      <Pane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="90.0" layoutX="454.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/zh.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="90.0" layoutX="676.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/uk.png" />
+               </image>
+            </ImageView>
+                <ColorPicker fx:id="colorPicker" layoutX="600.0" layoutY="225.0" prefHeight="50.0" prefWidth="200.0">
+               <value>
+                  <Color red="0.4588235318660736" green="0.2666666805744171" blue="0.6823529601097107" />
+               </value>
+            </ColorPicker>
+                <Spinner fx:id="spinner" editable="true" initialValue="15" layoutX="600.0" layoutY="150.0" max="20" min="10" prefHeight="50.0" prefWidth="200.0" />
+                <Label fx:id="dimensionLabel" alignment="CENTER" layoutX="200.0" layoutY="150.0" prefHeight="50.0" prefWidth="200.0" text="%dimensionLabel" textFill="#7544ae">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Label>
+                <Separator layoutX="100.0" layoutY="125.0" prefHeight="10.0" prefWidth="800.0" />
+                <Label fx:id="appTitle" layoutX="100.0" layoutY="36.0" prefHeight="80.0" prefWidth="800.0" style="-fx-alignment: center;" text="%title" textFill="#7544ae">
+                    <font>
+                        <Font name="Constantia" size="55.0" />
+                    </font>
+                </Label>
+            <Button fx:id="englishLanguageButton" layoutX="676.0" layoutY="444.0" mnemonicParsing="false" onAction="#setLanguageToEnglish" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: none;" />
+            <Button fx:id="generateButton" layoutX="557.0" layoutY="650.0" mnemonicParsing="false" onAction="#generateMaze" prefHeight="75.0" prefWidth="325.0" style="-fx-background-color: white; -fx-border-color: #7544ae; -fx-border-width: 3; -fx-border-radius: 5; -fx-alignment: center;" text="%generateButtonText" textAlignment="CENTER" textFill="#7544ae">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Button>
+            <Label fx:id="colorLabel" alignment="CENTER" layoutX="200.0" layoutY="225.0" prefHeight="50.0" prefWidth="200.0" text="%colorLabel" textFill="#7544ae">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="languageLabel" alignment="CENTER" layoutX="400.0" layoutY="372.0" prefHeight="50.0" prefWidth="200.0" text="%languageLabel" textFill="#7544ae">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Button fx:id="importMaze" layoutX="116.0" layoutY="550.0" mnemonicParsing="false" onAction="#ImportMazeAsJson" prefHeight="75.0" prefWidth="325.0" style="-fx-background-color: white; -fx-border-color: #7544ae; -fx-border-width: 3; -fx-border-radius: 5; -fx-alignment: center;" text="%importButtonText" textAlignment="CENTER" textFill="#7544ae">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="60.0" fitWidth="100.0" layoutX="232.0" layoutY="447.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/ro.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="romanianLanguageButton" layoutX="232.0" layoutY="360.0" mnemonicParsing="false" onAction="#setLanguageToRomanian" prefHeight="60.0" prefWidth="90.0" style="-fx-background-color: none;" textFill="WHITE" />
+            <Button fx:id="exitButton" layoutX="116.0" layoutY="650.0" mnemonicParsing="false" onAction="#exitApp" prefHeight="75.0" prefWidth="325.0" style="-fx-background-color: white; -fx-border-color: #7544ae; -fx-border-width: 3; -fx-border-radius: 5; -fx-alignment: center;" text="%exitButtonText" textAlignment="CENTER" textFill="#7544ae">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="chineseLanguageButton" layoutX="454.0" layoutY="446.0" mnemonicParsing="false" onAction="#setLanguageToChinese" prefHeight="60.0" prefWidth="90.0" style="-fx-background-color: none;" textFill="WHITE" />
+            <Button fx:id="generate3DButton" layoutX="557.0" layoutY="550.0" mnemonicParsing="false" onAction="#generate3DMaze" prefHeight="75.0" prefWidth="325.0" style="-fx-background-color: white; -fx-border-color: #7544ae; -fx-border-width: 3; -fx-border-radius: 5; -fx-alignment: center;" text="%generate3DButtonText" textAlignment="CENTER" textFill="#7544ae">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Button>
+            <Label fx:id="algorithmLabel" alignment="CENTER" layoutX="200.0" layoutY="306.0" prefHeight="50.0" prefWidth="200.0" text="%algorithmLabel" textFill="#7544ae">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Spinner fx:id="spinner1" editable="true" layoutX="600.0" layoutY="300.0" prefHeight="50.0" prefWidth="200.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
