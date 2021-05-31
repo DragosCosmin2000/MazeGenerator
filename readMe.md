@@ -26,7 +26,7 @@ cu scopul de a lasa utilizatorul sa foloseasca interfata.
     * posibilitatea de a importa si refolosi labirinturile
     anterior create.
 
-##Contributie
+## Contributie
 Tudorache Dragos:
 * Design-ul aplicatiei
 * Implementarea algoritmului Recursive Backtrack 2D si 3D
